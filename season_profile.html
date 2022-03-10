@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="/study_assets/seasonal_change/javascript/jquery-3.1.1.min.js"></script>
+    <script src="/study_assets/seasonal_change/survey-jquery/survey.jquery.js"></script>
+    <script src="/assets/javascripts/jatos.js"></script>
+    <link rel="stylesheet" href="/study_assets/seasonal_change/bootstrap-3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/study_assets/seasonal_change/study.css">
+</head>
+
+<body>
+    <div id="season_profile"></div>
+
+    <script>
+        jatos.onLoad(function () {
+            Survey.Survey.cssType = "bootstrap";
+            Survey.defaultBootstrapCss.navigationButton = "btn btn-green";
+
+            window.survey = new Survey.Model({
+              title: "Cuestionario de Perfil Estacional o SPAQ",
+                pages: [{
+                    questions: [{
+                            type: "matrixdropdown",
+                            name: "mental_health",
+                            title: "¿En qué época del año usted:",
+                            isRequired: true,
+                            cellType: "checkbox",
+
+                            columns: [{
+                                value: 1,
+                                title: "Ene",
+                                choices: [{
+                                  value: 1,
+                                  text: " "
+                                }
+                              ],
+                            },
+                            {
+                                value: 2,
+                                title: "Feb",
+                                choices: [{
+                                  value: 2,
+                                  text: " "
+                                }
+                              ],
+                            },
+                            {
+                                value: 3,
+                                title: "Mar",
+                                choices: [{
+                                  value: 3,
+                                  text: " "
+                                }
+                              ],
+                            },
+                            {
+                                value: 4,
+                                title: "Abr",
+                                choices: [{
+                                  value: 4,
+                                  text: " "
+                                }
+                              ],
+                            },
+                            {
+                                value: 5,
+                                title: "May",
+                                choices: [{
+                                  value: 5,
+                                  text: " "
+                                }
+                              ],
+                            },
+                            {
+                                value: 6,
+                                title: "Jun",
+                                choices: [{
+                                  value: 6,
+                                  text: " "
+                                }
+                              ],
+                            },
+                            {
+                                value: 7,
+                                title: "Jul",
+                                choices: [{
+                                  value: 7,
+                                  text: " "
+                                }
+                              ],
+                            },
+                            {
+                                value: 8,
+                                title: "Ago",
+                                choices: [{
+                                  value: 8,
+                                  text: " "
+                                }
+                              ],
+                            },
+                            {
+                                value: 9,
+                                title: "Sep",
+                                choices: [{
+                                  value: 9,
+                                  text: " "
+                                }
+                              ],
+                            },
+                            {
+                                value: 10,
+                                title: "Oct",
+                                choices: [{
+                                  value: 10,
+                                  text: " "
+                                }
+                              ],
+                            },
+                            {
+                                value: 11,
+                                title: "Nov",
+                                choices: [{
+                                  value: 11,
+                                  text: " "
+                                }
+                              ],
+                            },
+                            {
+                                value: 12,
+                                title: "Dic",
+                                choices: [{
+                                  value: 12,
+                                  text: " "
+                                }
+                              ],
+                            },
+                            {
+                                value: 13,
+                                title: "No destaca ningún mes en particular",
+                                cellType: "radiogroup",
+                                choices: [{
+                                  value: 13,
+                                  text: " "
+                                }
+                              ],
+                            }
+                          ],
+                            rows: [{
+                                value: "feel_better",
+                                text: "Se siente mejor?"
+                            },
+                            {
+                                value: "wheight_increase1",
+                                text: "Tiende a ganar peso?"
+                            },
+                            {
+                                value: "social_increase",
+                                text: "Se relaciona socialmente más?"
+                            },
+                            {
+                                value: "sleep_decrease",
+                                text: "Duerme menos?"
+                            },
+                            {
+                                value: "eating_increase",
+                                text: "Come más?"
+                            },
+                            {
+                                value: "weight_decrease",
+                                text: "Pierde más peso?"
+                            },
+                            {
+                                value: "social_decrease",
+                                text: "Se relaciona socialmente menos?"
+                            },
+                            {
+                                value: "feel_worst",
+                                text: "Se siente peor?"
+                            },
+                            {
+                                value: "eating_decrease",
+                                text: "Come menos?"
+                            },
+                            {
+                                value: "sleep_increase",
+                                text: "Duerme más?"
+                            }
+                          ],
+
+                          },
+
+
+                      {
+                            type: "matrix",
+                            name: "mental_health",
+                            title: "¿Hasta qué punto cambian estos aspectos según la estación del año?",
+                            isRequired: true,
+                            columns: [{
+                                value: 1,
+                                text: "Sin cambios"
+                            },
+                            {
+                                value: 2,
+                                text: "Pocos cambios"
+                            },
+                            {
+                                value: 3,
+                                text: "Cambios moderados"
+                            },
+                            {
+                                value: 4,
+                                text: "Cambio marcado"
+                            },
+                            {
+                                value: 5,
+                                text: "Cambio extremadamente marcado"
+                            }
+                          ],
+                            rows: [{
+                                value: "sleep_change",
+                                text: "Duración del sueño"
+                            },
+                            {
+                                value: "social_activity",
+                                text: "Actividad social"
+                            },
+                            {
+                                value: "mood",
+                                text: "Estado de ánimo"
+                            },
+                            {
+                                value: "weight",
+                                text: "Peso"
+                            },
+                            {
+                                value: "apetite",
+                                text: "Apetito"
+                            },
+                            {
+                                value: "energy_level",
+                                text: "Nivel de energía"
+                            }
+                          ],
+                        },
+                        {
+                            type: "radiogroup",
+                            name: "problem_season",
+                            isRequired: true,
+                            title: "Si su experiencia cambia con las estaciones, ¿lo siente como un problema?",
+                            choices: ["Si", "No",
+                            ]
+                        },
+                        {
+                            type: "rating",
+                            name: "size_problem",
+                            title: "El cambio estacional se trata de un problema:",
+                            rateValues:[
+                              {
+                                value: 1,
+                                text: "Leve"
+                              },
+                              {
+                                value: 2,
+                                text: "Moderado"
+                              },
+                              {
+                                value: 3,
+                                text: "Importante"
+                              },
+                              {
+                                value: 4,
+                                text: "Severo"
+                              },
+                              {
+                                value: 5,
+                                text: "Grave"
+                              }
+                            ],
+                            visibleIf: "{problem_season} = Si"
+                        },
+                        {
+                            type: "radiogroup",
+                            name: "weight_fluctuation",
+                            title: "¿Cómo ha fluctuado su peso a lo largo del año?",
+                            isRequired: true,
+                            colCount: 1,
+                            choices: ["0 - 1kg", "1,5 - 2kg",
+                            "2,5 - 3kg", "3,5 - 4kg", "4,5 - 5kg",
+                            "Más de 5kg"
+                          ]
+                        },
+                        {
+                            type: "panel",
+                            name: "sleep_duration_bySeason",
+                            elements: [
+                              {
+                                type: "rating",
+                                name: "winter_sleep",
+                                title: "Invierno (21 Junio - 21 Septiembre)",
+                                isRequired: true,
+                                rateValues: [
+                                  1,
+                                  2,
+                                  3,
+                                  4,
+                                  5,
+                                  6,
+                                  7,
+                                  8,
+                                  9,
+                                  10,
+                                  11,
+                                  12,
+                                  13,
+                                  14,
+                                  15,
+                                  16,
+                                  17,
+                                  18,
+                                  {
+                                    value: 19,
+                                    text: "Mas de 18"
+                                  }
+                                ],
+                                rateMax: 19
+                              },
+                              {
+                                type: "rating",
+                                name: "spring_sleep",
+                                title: "Primavera (21 Septiembre - 21 Diciembre)",
+                                isRequired: true,
+                                rateValues: [
+                                  1,
+                                  2,
+                                  3,
+                                  4,
+                                  5,
+                                  6,
+                                  7,
+                                  8,
+                                  9,
+                                  10,
+                                  11,
+                                  12,
+                                  13,
+                                  14,
+                                  15,
+                                  16,
+                                  17,
+                                  18,
+                                  {
+                                    value: 19,
+                                    text: "Más de 18"
+                                  }
+                                ],
+                                rateMax: 19
+                              },
+                              {
+                                type: "rating",
+                                name: "summer_sleep",
+                                title: "Verano (21 Diciembre - 21 Marzo)",
+                                isRequired: true,
+                                rateValues: [
+                                  1,
+                                  2,
+                                  3,
+                                  4,
+                                  5,
+                                  6,
+                                  7,
+                                  8,
+                                  9,
+                                  10,
+                                  11,
+                                  12,
+                                  13,
+                                  14,
+                                  15,
+                                  16,
+                                  17,
+                                  18,
+                                  {
+                                    value: 19,
+                                    text: "Más de 18"
+                                  }
+                                ],
+                                rateMax: 19
+                              },
+                              {
+                                type: "rating",
+                                name: "fall_sleep",
+                                title: "Otoño (21 Marzo - 21 Junio)",
+                                isRequired: true,
+                                rateValues: [
+                                  1,
+                                  2,
+                                  3,
+                                  4,
+                                  5,
+                                  6,
+                                  7,
+                                  8,
+                                  9,
+                                  10,
+                                  11,
+                                  12,
+                                  13,
+                                  14,
+                                  15,
+                                  16,
+                                  17,
+                                  18,
+                                  {
+                                    value: 19,
+                                    text: "Más de 18"
+                                  }
+                                ],
+                                rateMax: 19
+                              }
+                            ],
+                            title: "Aproximadamente, ¿cuántas horas duerme al día durante cada estación? (incluye siestas)",
+                            isRequired: true
+                          },
+                          {
+                            type: "radiogroup",
+                            name: "change_eating",
+                            title: "¿Nota algún cambio en sus preferencias alimentarias con el cambio de estación?",
+                            isRequired: true,
+                            choices: ["Si", "No",
+                              ]
+                          },
+                          {
+                            type: "text",
+                            name: "specify_change_eating",
+                            title: "Por favor, especifique cuáles cambios ha notado en su alimentación",
+                            isRequired: true,
+                            visibleIf: "{change_eating} = Si"
+                          }
+                      ],
+                      title: "El objetivo de estas preguntas es valorar cómo cambian sus ánimos y conductas a lo largo del tiempo. Por favor, rellene los casilleros que correspondan. Interesa que conteste lo que usted experimenta, no lo que haya observado en otros. <br>En las siguientes preguntas rellene los casilleros en los meses que corresponda. Puede ser un único mes ✓, una secuencia de meses ✓✓✓ o cualquier otra agrupación.",
+
+                },
+
+              ]
+        });
+
+            survey.onComplete.add(function (result) {
+            $("#feedback").hide(); // Hides the 'Thank you for completing ...' message
+            jatos.submitResultData(JSON.stringify(result.data), jatos.startNextComponent);
+        });
+
+            $("#season_profile").Survey({
+            model: survey
+          });
+
+        });
+    </script>
+</body>
+
+</html>

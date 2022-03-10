@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="/study_assets/seasonal_change/javascript/jquery-3.1.1.min.js"></script>
+    <script src="/study_assets/seasonal_change/survey-jquery/survey.jquery.js"></script>
+    <script src="/assets/javascripts/jatos.js"></script>
+    <link rel="stylesheet" href="/study_assets/seasonal_change/bootstrap-3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/study_assets/seasonal_change/study.css">
+    <link rel="stylesheet" href="/study_assets/seasonal_change/css/preview_showcase.css">
+</head>
+
+<body>
+    <div id="demographics"></div>
+
+    <script>
+        jatos.onLoad(function () {
+
+            Survey.Survey.cssType = "bootstrap";
+            Survey.defaultBootstrapCss.navigationButton = "btn btn-green";
+
+            window.survey = new Survey.Model({
+                pages:[{
+                  questions: [{
+                            name: "id",
+                            type: "text",
+                            title: "Por favor, introduce tu nombre y apellido:",
+                            isRequired: true
+                        },
+                        {
+                            name: "age",
+                            type: "text",
+                            inputType: "number",
+                            title: "Edad:",
+                            isRequired: true
+                        },
+                        {
+                            type: "radiogroup",
+                            name: "education",
+                            title: "Máximo nivel educativo alcanzado",
+                            isRequired: true,
+                            choices: [
+                              {
+                                value: "item1",
+                                text: "Primario incompleto"
+                              },
+                              {
+                                value: "item2",
+                                text: "Primario completo"
+                              },
+                              {
+                                value: "item3",
+                                text: "Secundario incompleto"
+                              },
+                              {
+                                value: "item4",
+                                text: "Secundario completo"
+                              },
+                              {
+                                value: "item5",
+                                text: "Terciario incompleto"
+                              },
+                              {
+                                value: "item6",
+                                text: "Terciario completo"
+                              },
+                              {
+                                value: "item7",
+                                text: "Universitario incompleto"
+                              },
+                              {
+                                value: "item8",
+                                text: "Universitario completo"
+                              },
+                              {
+                                value: "item9",
+                                text: "Posgrado incompleto"
+                              },
+                              {
+                                value: "item10",
+                                text: "Posgrado completo"
+                              }
+                            ]
+                        },
+                        {
+                              type: "dropdown",
+                              name: "born_place",
+                              title: "¿Nació en Ushuaia?",
+                              colCount: 0,
+                              choices:["Si", "No"],
+                              isRequired: true
+                        },
+                        {
+                              type: "text",
+                              name: "years_in_ushuaia",
+                              inputType: "number",
+                              title: "¿Cuántos años hace que vive en Ushuaia?",
+                              visibleIf: "{born_place} = No",
+                              isRequired: true
+                        },
+                        {
+                              type: "text",
+                              name: "email",
+                              title: "Si quisieras participar en una segunda parte del estudio dejanos tu mail para que nos contactemos.",
+                              validators: [{
+                                  type: "email"
+                              }]
+                        }
+                      ],
+                    title: "Datos demográficos"
+                  }
+                ]
+              });
+            survey.onComplete.add(function (result) {
+                $("#demographics").hide(); // Hides the 'Thank you for completing ...' message
+                jatos.submitResultData(JSON.stringify(result.data), jatos.startNextComponent);
+            });
+
+            $("#demographics").Survey({
+                model: survey
+            });
+
+        });
+    </script>
+</body>
+
+</html>

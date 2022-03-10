@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="/study_assets/seasonal_change/javascript/jquery-3.1.1.min.js"></script>
+    <script src="/study_assets/seasonal_change/survey-jquery/survey.jquery.js"></script>
+    <script src="/assets/javascripts/jatos.js"></script>
+    <link rel="stylesheet" href="/study_assets/seasonal_change/bootstrap-3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/study_assets/seasonal_change/study.css">
+</head>
+
+<body>
+    <div id="demographics"></div>
+
+    <script>
+	     var browserInfo
+
+		jatos.onLoad(() => {
+            fillInfo();
+        });
+
+		 async function fillInfo() {
+            browserInfo = await getBrowserInfo();
+            $("#browserInfo").html(JSON.stringify(browserInfo, null, 2));
+        }
+
+		 async function getBrowserInfo() {
+            var info = {};
+            info.browser = getBrowserAndVersion();
+            info.vendor = navigator.vendor;
+            info.userAgent = navigator.userAgent;
+            info.language = navigator.language;
+            info.languages = navigator.languages;
+            info.cookieEnabled = navigator.cookieEnabled;
+            //var cameraAndMicro = await timeout(3000, checkCameraAndMicro());
+            //info.camera = cameraAndMicro.hasCamera ? cameraAndMicro.hasCamera : "unknown";
+            //info.micro = cameraAndMicro.hasMicro ? cameraAndMicro.hasMicro : "unknown";
+            info.mimeTypes = getSupportedMimeTypes();
+            info.pdfSupport = 'application/pdf' in navigator.mimeTypes;
+            info.flashSupport = 'application/x-shockwave-flash' in navigator.mimeTypes;
+            info.javaSupport = 'application/x-java-applet' in navigator.mimeTypes;
+            return info;
+        }
+
+        function getSupportedMimeTypes() {
+            if (!navigator.mimeTypes) return [];
+
+            var types = [];
+            for (i = 0; i < navigator.mimeTypes.length; i++) {
+                types.push(navigator.mimeTypes[i].type);
+            }
+            return types;
+        }
+
+        // From https://stackoverflow.com/a/2401861/1278769
+        function getBrowserAndVersion() {
+            var ua = navigator.userAgent, tem,
+                M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+            if (/trident/i.test(M[1])) {
+                tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+                return 'IE ' + (tem[1] || '');
+            }
+            if (M[1] === 'Chrome') {
+                tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
+                if (tem != null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+            }
+            M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
+            if ((tem = ua.match(/version\/(\d+)/i)) != null) M.splice(1, 1, tem[1]);
+            return M.join(' ');
+        }
+
+	// a partir de acá empieza el script original
+        jatos.onLoad(function () {
+
+            Survey.Survey.cssType = "bootstrap";
+            Survey.defaultBootstrapCss.navigationButton = "btn btn-green";
+
+            window.survey = new Survey.Model({
+                pages: [{
+                    questions: [{
+                            type: "dropdown",
+                            name: "sincericidio",
+                            title: "La calidad de nuestra investigación depende de la calidad de los datos que obtengamos. Por favor, respondé con sinceridad si podemos contar con tus respuestas.",
+                            isRequired: true,
+                            colCount: 0,
+                            choices: ["Pueden contar con mis respuestas, participé del experimento a consciencia e intenté responder honestamente.", "Descarten mis datos, respondí al azar, además tuve que atender el teléfono en la mitad."],
+                            isRequired: true
+                        },
+						            {
+                            name: "TeEscuchamos",
+                            type: "text",
+                            title: "Si hay algo que ocurrió durante el experimento que nos quieras comunicar o que necesitemos saber, por favor, escribilo acá abajo",
+                            placeHolder: "Por ejemplo: tuve que atender el teléfono",
+                            //isRequired: true
+                        },
+                        {
+                            type: "text",
+                            name: "email",
+                            placeHolder: "nombre@mail.com",
+                            title: "Si te gustaría participar en una segunda parte del estudio dejanos tu mail para que nos contactemos.",
+                            validators: [{
+                              type: "email"
+                            }]
+                        }
+						//,
+						//{
+                        //    type: "dropdown",
+                        //    name: "Navegador",
+                        //    title: "¿Qué navegador utilizó para realizar este estudio?",
+                        //    isRequired: true,
+                        //    colCount: 0,
+                        //    choices: ["Google Chrome", "Microsoft Edge" , "Mozilla Firefox", "Opera", "Safari", "Internet Explorer" , "Otro", "No lo sé"],
+                        //   isRequired: true
+                        //}
+                    ]
+                }]
+            });
+            survey.onComplete.add(function (result) {
+              $("#demographics").hide(); // Hides the 'Thank you for completing ...' message
+		        jatos.appendResultData(JSON.stringify(result.data), jatos.startLastComponent);
+            });
+
+            $("#demographics").Survey({
+                model: survey
+            });
+
+        });
+    </script>
+</body>
+
+</html>
